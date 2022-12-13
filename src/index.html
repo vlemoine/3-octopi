@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🐙🐙🐙</title>
+    <link rel="icon" href="https://fav.farm/🐙" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="🐙">
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+    </div>
+    <div class="🐙">
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+    </div>
+    <div class="🐙">
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+      <div class="arm"></div>
+    </div>
+    <div class="⚪️"></div>
+    <div class="⚪️"></div>
+    <div class="aniToggle">
+      <input id="animate" name="animate" type="checkbox" checked />
+      <label for="animate">Animation</label>
+    </div>
+    <div class="musicToggle">
+      <input id="music" name="music" type="checkbox" />
+      <label for="music">Music</label>
+    </div>
+    <div id="player"></div>
+    <a class="link" href="//🐙🐙🐙.ws">🐙🐙🐙.ws</a>
+    <script>
+      var tag = document.createElement("script");
+      tag.src = "//www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName("script")[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player("player", {
+          height: "0",
+          width: "0",
+          videoId: "JTszj4iZUMw",
+          events: {
+            onReady: onPlayerReady,
+          },
+        });
+      }
+      function onPlayerReady() {
+        player.setVolume(50);
+        music.addEventListener("change", () => {
+          if (music.checked) {
+            player.playVideo();
+          } else {
+            player.pauseVideo();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
