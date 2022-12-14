@@ -8,7 +8,6 @@ html,
 body {
   height: 100%;
 }
-
 @keyframes down {
   from {
     background-position: center 12.5vmin;
@@ -70,7 +69,8 @@ body {
   position: absolute;
   width: 20vmin;
 }
-.🐙, .🐙 .arm {
+.🐙,
+.🐙 .arm {
   background-color: hwb(var(--hue) 0% 10%);
 }
 .🐙::before {
@@ -117,15 +117,15 @@ body {
   box-shadow: inset -0.4vmin 0 0 hwb(var(--hue) 0% 50%);
 }
 .🐙 .arm:first-child,
-.🐙 .arm:last-child,
+.🐙 .arm:nth-child(8),
 .🐙 .arm:nth-child(2),
 .🐙 .arm:nth-child(7) {
   background-color: hwb(var(--hue) 0% 30%);
 }
 .🐙 .arm:first-child::before,
 .🐙 .arm:first-child::after,
-.🐙 .arm:last-child::before,
-.🐙 .arm:last-child::after,
+.🐙 .arm:nth-child(8)::before,
+.🐙 .arm:nth-child(8)::after,
 .🐙 .arm:nth-child(2)::before,
 .🐙 .arm:nth-child(2)::after,
 .🐙 .arm:nth-child(7)::before,
@@ -138,8 +138,8 @@ body {
 .🐙 .arm:nth-child(2)::after {
   box-shadow: inset 0.4vmin 0 0 hwb(var(--hue) 0% 70%);
 }
-.🐙 .arm:last-child::before,
-.🐙 .arm:last-child::after,
+.🐙 .arm:nth-child(8)::before,
+.🐙 .arm:nth-child(8)::after,
 .🐙 .arm:nth-child(7)::before,
 .🐙 .arm:nth-child(7)::after {
   box-shadow: inset -0.4vmin 0 0 hwb(var(--hue) 0% 70%);
@@ -151,23 +151,17 @@ body {
 .🐙:nth-child(2) {
   /* background-color: orangered; */
   --hue: var(--oct-2);
-}
-.🐙:nth-child(3) {
-  /* background-color: darkturquoise; */
-  --hue: var(--oct-3);
-}
-
-
-.🐙:first-child {
-  top: calc(50% + 10vmin);
-}
-.🐙:nth-child(2) {
   left: 20%;
   top: 20%;
 }
 .🐙:nth-child(3) {
+  /* background-color: darkturquoise; */
+  --hue: var(--oct-3);
   right: 15%;
   top: 33%;
+}
+.🐙:first-child {
+  top: calc(50% + 10vmin);
 }
 .🐙::before {
   height: 30%;
@@ -177,7 +171,6 @@ body {
   left: 10%;
   position: absolute;
 }
-
 @keyframes bounce {
   from {
     margin-top: -4vmin;
@@ -222,7 +215,6 @@ body {
   left: 10vmin;
   top: calc(100% + 20vmin);
 }
-
 @keyframes float {
   from {
     background-position: 0 0;
@@ -246,6 +238,7 @@ body {
   height: 32%;
   position: absolute;
   right: 50%;
+  transform-origin: center;
   width: 16%;
   z-index: -1;
 }
@@ -310,7 +303,7 @@ body {
   margin-bottom: 0.4vmin;
   transform: translateX(7.2vmin) rotate(-45deg);
 }
-.arm:last-child {
+.arm:nth-child(8) {
   animation-name: arm8;
   margin-bottom: 4vmin;
   transform: translateX(8.8vmin) rotate(-60deg);
@@ -380,68 +373,99 @@ body {
     transform: translateX(8.8vmin) rotate(-75deg);
   }
 }
-.aniToggle input,
-.musicToggle input {
-  display: none;
-}
-.aniToggle input:checked ~ label::after,
-.musicToggle input:checked ~ label::after {
-  content: "on";
-}
-.aniToggle label,
-.musicToggle label {
+.toggle {
   color: #fff;
   cursor: pointer;
   font-family: monospace;
   padding: 0.5rem;
   position: absolute;
   top: 1vmin;
-}
-.aniToggle label::after,
-.musicToggle label::after {
-  content: "off";
-  font-weight: bold;
-  margin-left: 1ch;
-  text-decoration: underline;
-}
-
-.aniToggle label {
-  right: 1vmin;
-}
-
-.musicToggle label {
   left: 1vmin;
 }
-
+.toggle + .toggle {
+  left: auto;
+  right: 1vmin;
+}
+.toggle:focus-within {
+  background-color: hwb(322deg 0% 20%);
+  border-radius: 100px;
+}
+.toggle::after {
+  content: "off";
+  font-weight: bold;
+  text-decoration: underline;
+}
+.toggle:has(input:checked)::after {
+  content: "on";
+}
+.toggle input {
+  height: 0;
+  margin: 0;
+  opacity: 0;
+  width: 0;
+}
 a {
   border-radius: 1rem;
   color: #fff;
   font-family: monospace;
-  line-height: 1;
   padding: 0.5rem 1rem;
   position: absolute;
   text-decoration: none;
   transition: background-color 0.5s;
 }
-
 .link {
+  left: 0;
+  margin: auto;
+  right: 0;
+  text-align: center;
   top: 1vmin;
+  width: 12ch;
 }
 .link:hover {
   background-color: orangered;
 }
-
 .viv {
   bottom: 1vmin;
 }
 .viv:hover {
   background-color: #078;
 }
-
 /* Animate */
 body:has(#animate:checked),
 body:has(#animate:checked) .🐙,
 body:has(#animate:checked) .⚪️,
-body:has(#animate:checked) .arm  {
+body:has(#animate:checked) .arm {
   animation-play-state: running;
+}
+input[type="range"] {
+  appearance: none;
+  background-image: linear-gradient(
+    to right,
+    hwb(0deg 0% 0%),
+    hwb(36deg 0% 0%),
+    hwb(72deg 0% 0%),
+    hwb(108deg 0% 0%),
+    hwb(144deg 0% 0%),
+    hwb(180deg 0% 0%),
+    hwb(216deg 0% 0%),
+    hwb(252deg 0% 0%),
+    hwb(288deg 0% 0%),
+    hwb(324deg 0% 0%),
+    hwb(360deg 0% 0%)
+  );
+  border-radius: 100px;
+  opacity: 0;
+}
+label:focus-within input[type="range"] {
+  left: -25%;
+  opacity: 1;
+  position: absolute;
+  top: -2rem;
+  width: 150%;
+}
+h1 {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 0;
 }

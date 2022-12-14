@@ -1,0 +1,1 @@
+!function(){"use strict";document.querySelectorAll('input[type="range"]').forEach(((t,e)=>{t.addEventListener("keydown",(t=>{t.target.setAttribute("step",6)})),t.addEventListener("mousedown",(t=>{t.target.setAttribute("step",1)})),t.addEventListener("input",(t=>{document.documentElement.style.setProperty(`--oct-${e+1}`,`${t.target.value}deg`)}))}))}();
