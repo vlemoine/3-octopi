@@ -1,4 +1,12 @@
 @charset "UTF-8";
+@use "sass:math";
+
+@import "keyframes";
+
+$bg-size: 25vmin;
+$speed: 1s;
+$size: 20vmin;
+
 :root {
   --oct-1: 322deg;
   --oct-2: 16deg;
@@ -8,46 +16,37 @@ html,
 body {
   height: 100%;
 }
-@keyframes down {
-  from {
-    background-position: center 12.5vmin;
-    background-position: center 37.5vmin;
-  }
-  to {
-    background-position: center 37.5vmin;
-    background-position: center calc(15vmin);
-  }
-}
+
 body {
   align-items: center;
-  animation: down 1s linear infinite paused;
+  animation: down $speed linear infinite paused;
   background-color: midnightblue;
   background-image: radial-gradient(
-      circle at 18.75vmin 0,
+      circle at $bg-size * 0.75 0,
       transparent,
-      transparent 6.25vmin,
-      rgba(0, 255, 255, 0.1) 6.25vmin,
-      rgba(0, 255, 255, 0.1) 12.5vmin,
-      transparent 12.5vmin
+      transparent math.div($bg-size, 4),
+      rgba(cyan, 0.1) math.div($bg-size, 4),
+      rgba(cyan, 0.1) math.div($bg-size, 2),
+      transparent math.div($bg-size, 2)
     ),
     radial-gradient(
-      circle at 37.5vmin 22.5vmin,
+      circle at $bg-size * 1.5 $bg-size * 0.9,
       transparent,
-      transparent 6.25vmin,
-      rgba(0, 255, 255, 0.1) 6.25vmin,
-      rgba(0, 255, 255, 0.1) 12.5vmin,
-      transparent 12.5vmin
+      transparent math.div($bg-size, 4),
+      rgba(cyan, 0.1) math.div($bg-size, 4),
+      rgba(cyan, 0.1) math.div($bg-size, 2),
+      transparent math.div($bg-size, 2)
     ),
     radial-gradient(
-      circle at 0 22.5vmin,
+      circle at 0 $bg-size * 0.9,
       transparent,
-      transparent 6.25vmin,
-      rgba(0, 255, 255, 0.1) 6.25vmin,
-      rgba(0, 255, 255, 0.1) 12.5vmin,
-      transparent 12.5vmin
+      transparent math.div($bg-size, 4),
+      rgba(cyan, 0.1) math.div($bg-size, 4),
+      rgba(cyan, 0.1) math.div($bg-size, 2),
+      transparent math.div($bg-size, 2)
     );
-  background-position: center 12.5vmin;
-  background-size: 37.5vmin 22.5vmin;
+  background-position: center math.div($bg-size, 2);
+  background-size: $bg-size * 1.5 $bg-size * 0.9;
   display: flex;
   justify-content: center;
   margin: 0;
@@ -55,57 +54,74 @@ body {
 }
 .🐙 {
   --hue: 100deg;
-  animation: bounce 1s infinite alternate paused;
+  animation: bounce $speed infinite alternate paused;
+  aspect-ratio: 1/1;
   background-image: radial-gradient(
     circle at center 30%,
     rgba(255, 255, 255, 0.125),
     rgba(255, 255, 255, 0) 33%
   );
   border-radius: 100%;
-  box-shadow: inset 0 1.6vmin 1.6vmin rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 $size * 0.08 $size * 0.08 rgba(black, 0.125);
   flex: 0 0 auto;
-  height: 20vmin;
-  margin-top: -4vmin;
+  margin-top: math.div($size, -5);
   position: absolute;
-  width: 20vmin;
+  width: $size;
+  &::before {
+    background-image:
+      // highlight
+      radial-gradient(
+        circle at 18.75% 37.5%,
+        #fffc $size * 0.02,
+        transparent $size * 0.022
+      ),
+      radial-gradient(
+        circle at 81.25% 37.5%,
+        #fffc $size * 0.02,
+        transparent $size * 0.022
+      ),
+      // pupils
+      radial-gradient(
+          circle at 18.75% center,
+          #000 $size * 0.095,
+          transparent $size * 0.1
+        ),
+      radial-gradient(
+        circle at 81.25% center,
+        #000 $size * 0.095,
+        transparent $size * 0.1
+      ),
+      // under pupil gradient
+      radial-gradient(
+          circle at 18.75% 53.33%,
+          #fff5 $size * 0.09,
+          transparent 2vmin
+        ),
+      radial-gradient(
+        circle at 81.25% 53.33%,
+        #fff5 $size * 0.09,
+        transparent 2vmin
+      ),
+      // sockets
+      radial-gradient(
+          circle at 18.75% center,
+          hwb(var(--hue) 0% 20%) $size * 0.11,
+          hwb(var(--hue) 0% 30%) $size * 0.146,
+          hwb(var(--hue) 0% 30%) $size * 0.148,
+          transparent $size * 0.15
+        ),
+      radial-gradient(
+        circle at 81.25% center,
+        hwb(var(--hue) 0% 20%) $size * 0.11,
+        hwb(var(--hue) 0% 30%) $size * 0.146,
+        hwb(var(--hue) 0% 30%) $size * 0.148,
+        transparent $size * 0.15
+      );
+  }
 }
 .🐙,
 .🐙 .arm {
   background-color: hwb(var(--hue) 0% 10%);
-}
-.🐙::before {
-  background-image: radial-gradient(
-      circle at 18.75% 37.5%,
-      #fffc 0.4vmin,
-      transparent 0.44vmin
-    ),
-    radial-gradient(circle at 81.25% 37.5%, #fffc 0.4vmin, transparent 0.44vmin),
-    radial-gradient(circle at 18.75% center, black 1.9vmin, transparent 2vmin),
-    radial-gradient(circle at 81.25% center, black 1.9vmin, transparent 2vmin),
-    radial-gradient(
-      circle at 18.75% 53.33%,
-      rgba(255, 255, 255, 0.33) 1.8vmin,
-      transparent 2vmin
-    ),
-    radial-gradient(
-      circle at 81.25% 53.33%,
-      rgba(255, 255, 255, 0.33) 1.8vmin,
-      transparent 2vmin
-    ),
-    radial-gradient(
-      circle at 18.75% center,
-      hwb(var(--hue) 0% 20%) 2.2vmin,
-      hwb(var(--hue) 0% 30%) 2.92vmin,
-      hwb(var(--hue) 0% 30%) 2.96vmin,
-      transparent 3vmin
-    ),
-    radial-gradient(
-      circle at 81.25% center,
-      hwb(var(--hue) 0% 20%) 2.2vmin,
-      hwb(var(--hue) 0% 30%) 2.92vmin,
-      hwb(var(--hue) 0% 30%) 2.96vmin,
-      transparent 3vmin
-    );
 }
 .🐙 .arm::before,
 .🐙 .arm::after {
@@ -171,14 +187,7 @@ body {
   left: 10%;
   position: absolute;
 }
-@keyframes bounce {
-  from {
-    margin-top: -4vmin;
-  }
-  to {
-    margin-top: 0;
-  }
-}
+
 .⚪️ {
   animation: float 5s linear infinite paused;
   background-image: radial-gradient(
@@ -268,111 +277,9 @@ body {
 .arm:nth-child(n + 5)::after {
   left: 0;
 }
-.arm:first-child {
-  animation-name: arm1;
-  margin-bottom: 4vmin;
-  transform: translateX(-8.8vmin) rotate(60deg);
-}
-.arm:nth-child(2) {
-  animation-name: arm2;
-  margin-bottom: 0.4vmin;
-  transform: translateX(-7.2vmin) rotate(45deg);
-}
-.arm:nth-child(3) {
-  animation-name: arm3;
-  margin-bottom: -2.4vmin;
-  transform: translateX(-4.4vmin) rotate(30deg);
-}
-.arm:nth-child(4) {
-  animation-name: arm4;
-  margin-bottom: -4vmin;
-  transform: translateX(-0.6vmin) rotate(15deg);
-}
-.arm:nth-child(5) {
-  animation-name: arm5;
-  margin-bottom: -4vmin;
-  transform: translateX(0.6vmin) rotate(-15deg);
-}
-.arm:nth-child(6) {
-  animation-name: arm6;
-  margin-bottom: -2.4vmin;
-  transform: translateX(4.4vmin) rotate(-30deg);
-}
-.arm:nth-child(7) {
-  animation-name: arm7;
-  margin-bottom: 0.4vmin;
-  transform: translateX(7.2vmin) rotate(-45deg);
-}
-.arm:nth-child(8) {
-  animation-name: arm8;
-  margin-bottom: 4vmin;
-  transform: translateX(8.8vmin) rotate(-60deg);
-}
 
-@keyframes arm1 {
-  from {
-    transform: translateX(-8.8vmin) rotate(60deg);
-  }
-  to {
-    transform: translateX(-8.8vmin) rotate(75deg);
-  }
-}
-@keyframes arm2 {
-  from {
-    transform: translateX(-7.2vmin) rotate(45deg);
-  }
-  to {
-    transform: translateX(-7.2vmin) rotate(60deg);
-  }
-}
-@keyframes arm3 {
-  from {
-    transform: translateX(-4.4vmin) rotate(30deg);
-  }
-  to {
-    transform: translateX(-4.4vmin) rotate(45deg);
-  }
-}
-@keyframes arm4 {
-  from {
-    transform: translateX(-0.6vmin) rotate(15deg);
-  }
-  to {
-    transform: translateX(-0.6vmin) rotate(30deg);
-  }
-}
-@keyframes arm5 {
-  from {
-    transform: translateX(0.6vmin) rotate(-15deg);
-  }
-  to {
-    transform: translateX(0.6vmin) rotate(-30deg);
-  }
-}
-@keyframes arm6 {
-  from {
-    transform: translateX(4.4vmin) rotate(-30deg);
-  }
-  to {
-    transform: translateX(4.4vmin) rotate(-45deg);
-  }
-}
-@keyframes arm7 {
-  from {
-    transform: translateX(7.2vmin) rotate(-45deg);
-  }
-  to {
-    transform: translateX(7.2vmin) rotate(-60deg);
-  }
-}
-@keyframes arm8 {
-  from {
-    transform: translateX(8.8vmin) rotate(-60deg);
-  }
-  to {
-    transform: translateX(8.8vmin) rotate(-75deg);
-  }
-}
+@import "arms";
+
 .toggle {
   color: #fff;
   cursor: pointer;
@@ -454,14 +361,15 @@ input[type="range"] {
     hwb(360deg 0% 0%)
   );
   border-radius: 100px;
-  opacity: 0;
-}
-label:focus-within input[type="range"] {
   left: -25%;
-  opacity: 1;
+  opacity: 0;
   position: absolute;
   top: -2rem;
   width: 150%;
+}
+label:focus-within input[type="range"],
+input[type="range"]:focus {
+  opacity: 1;
 }
 h1 {
   font-size: 0.8125rem;

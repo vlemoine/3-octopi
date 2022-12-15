@@ -1,0 +1,19 @@
+@keyframes down {
+  from {
+    background-position: center 12.5vmin;
+    background-position: center 37.5vmin;
+  }
+  to {
+    background-position: center 37.5vmin;
+    background-position: center calc(15vmin);
+  }
+}
+
+@keyframes bounce {
+  from {
+    margin-top: -4vmin;
+  }
+  to {
+    margin-top: 0;
+  }
+}

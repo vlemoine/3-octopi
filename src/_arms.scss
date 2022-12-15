@@ -1,0 +1,149 @@
+@use "sass:math";
+
+$size: 20vmin;
+$deg-18: 60deg;
+$mb-18: math.div($size, 5);
+$x-18: $size*0.44;
+$deg-27: 45deg;
+$mb-27: $size*0.02;
+$x-27: $size*0.36;
+$deg-36: 30deg;
+$mb-36: -$size*0.12;
+$x-36: $size*0.22;
+$deg-45: 15deg;
+$mb-45: math.div($size, -5);
+$x-45: $size*0.03;
+
+.arm {
+  // individual arm positioning
+  &:first-child {
+    animation-name: arm1;
+    margin-bottom: $mb-18;
+    transform:
+      translateX(-#{$x-18})
+      rotate(#{$deg-18})
+    ;
+  }
+  &:nth-child(2) {
+    animation-name: arm2;
+    margin-bottom: $mb-27;
+    transform:
+      translateX(-#{$x-27})
+      rotate(#{$deg-27})
+    ;
+  }
+  &:nth-child(3) {
+    animation-name: arm3;
+    margin-bottom: $mb-36;
+    transform:
+      translateX(-#{$x-36})
+        rotate(#{$deg-36})
+    ;
+  }
+  &:nth-child(4) {
+    animation-name: arm4;
+    margin-bottom: $mb-45;
+    transform:
+      translateX(-#{$x-45})
+      rotate(#{$deg-45})
+    ;
+  }
+  &:nth-child(5) {
+    animation-name: arm5;
+    margin-bottom: $mb-45;
+    transform:
+      translateX(#{$x-45})
+      rotate(-#{$deg-45})
+    ;
+  }
+  &:nth-child(6) {
+    animation-name: arm6;
+    margin-bottom: $mb-36;
+    transform:
+      translateX(#{$x-36})
+      rotate(-#{$deg-36})
+    ;
+  }
+  &:nth-child(7) {
+    animation-name: arm7;
+    margin-bottom: $mb-27;
+    transform:
+      translateX(#{$x-27})
+      rotate(-#{$deg-27})
+    ;
+  }
+  &:nth-child(8) {
+    animation-name: arm8;
+    margin-bottom: $mb-18;
+    transform:
+      translateX(#{$x-18})
+      rotate(-#{$deg-18})
+    ;
+  }
+}
+
+$deg-ani: 15deg;
+@keyframes arm1 {
+  from {
+    transform: translateX(-#{$x-18}) rotate(#{$deg-18});
+  }
+  to {
+    transform: translateX(-#{$x-18}) rotate(#{$deg-18 + $deg-ani});
+  }
+}
+@keyframes arm2 {
+  from {
+    transform: translateX(-#{$x-27}) rotate(#{$deg-27});
+  }
+  to {
+    transform: translateX(-#{$x-27}) rotate(#{$deg-27 + $deg-ani});
+  }
+}
+@keyframes arm3 {
+  from {
+    transform: translateX(-#{$x-36}) rotate(#{$deg-36});
+  }
+  to {
+    transform: translateX(-#{$x-36}) rotate(#{$deg-36 + $deg-ani});
+  }
+}
+@keyframes arm4 {
+  from {
+    transform: translateX(-#{$x-45}) rotate(#{$deg-45});
+  }
+  to {
+    transform: translateX(-#{$x-45}) rotate(#{$deg-45 + $deg-ani});
+  }
+}
+@keyframes arm5 {
+  from {
+    transform: translateX(#{$x-45}) rotate(#{-$deg-45});
+  }
+  to {
+    transform: translateX(#{$x-45}) rotate(#{-$deg-45 - $deg-ani});
+  }
+}
+@keyframes arm6 {
+  from {
+    transform: translateX(#{$x-36}) rotate(#{-$deg-36});
+  }
+  to {
+    transform: translateX(#{$x-36}) rotate(#{-$deg-36 - $deg-ani});
+  }
+}
+@keyframes arm7 {
+  from {
+    transform: translateX(#{$x-27}) rotate(#{-$deg-27});
+  }
+  to {
+    transform: translateX(#{$x-27}) rotate(#{-$deg-27 - $deg-ani});
+  }
+}
+@keyframes arm8 {
+  from {
+    transform: translateX(#{$x-18}) rotate(#{-$deg-18});
+  }
+  to {
+    transform: translateX(#{$x-18}) rotate(#{-$deg-18 - $deg-ani});
+  }
+}
