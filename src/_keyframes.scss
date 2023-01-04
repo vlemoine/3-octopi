@@ -17,3 +17,20 @@
     margin-top: 0;
   }
 }
+
+@keyframes float {
+  from {
+    background-position: 0 0;
+    top: calc(100% + 20vmin);
+    transform: scale(1);
+  }
+  50% {
+    background-position: 5vmin 5vmin, 7vmin 8vmin, 5vmin 0;
+    transform: scale(2);
+  }
+  to {
+    background-position: 0 0;
+    top: -20vmin;
+    transform: scale(1.5);
+  }
+}
