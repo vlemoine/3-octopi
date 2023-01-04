@@ -161,17 +161,17 @@ body {
   box-shadow: inset -0.4vmin 0 0 hwb(var(--hue) 0% 70%);
 }
 .🐙:nth-child(1) {
-  /* background-color: mediumvioletred; */
+  // background-color: mediumvioletred;
   --hue: var(--oct-1);
 }
 .🐙:nth-child(2) {
-  /* background-color: orangered; */
+  // background-color: orangered;
   --hue: var(--oct-2);
   left: 20%;
   top: 20%;
 }
 .🐙:nth-child(3) {
-  /* background-color: darkturquoise; */
+  // background-color: darkturquoise;
   --hue: var(--oct-3);
   right: 15%;
   top: 33%;
@@ -187,30 +187,23 @@ body {
   left: 10%;
   position: absolute;
 }
+@function bubble($size, $position) {
+  @return radial-gradient(
+    circle at $position,
+    transparent calc(#{$size} - 4px),
+    rgba(#fff, 0.8) calc(#{$size} - 3px),
+    rgba(#fff, 0.8) calc(#{$size} - 1px),
+    transparent $size
+  );
+}
 
 .⚪️ {
-  animation: float 5s linear infinite paused;
-  background-image: radial-gradient(
-      circle at 3vmin 3vmin,
-      transparent calc(3vmin - 4px),
-      rgba(255, 255, 255, 0.8) calc(3vmin - 3px),
-      rgba(255, 255, 255, 0.8) calc(3vmin - 1px),
-      transparent 3vmin
-    ),
-    radial-gradient(
-      circle at 9vmin 9vmin,
-      transparent calc(2vmin - 4px),
-      rgba(255, 255, 255, 0.8) calc(2vmin - 3px),
-      rgba(255, 255, 255, 0.8) calc(2vmin - 1px),
-      transparent 2vmin
-    ),
-    radial-gradient(
-      circle at 3vmin 15vmin,
-      transparent calc(1vmin - 4px),
-      rgba(255, 255, 255, 0.8) calc(1vmin - 3px),
-      rgba(255, 255, 255, 0.8) calc(1vmin - 1px),
-      transparent 1vmin
-    );
+  animation: float $speed * 5 linear infinite paused;
+  background-image:
+    bubble(3vmin, 3vmin 3vmin),
+    bubble(2vmin, 9vmin 9vmin),
+    bubble(1vmin, 3vmin 15vmin)
+  ;
   height: 20vmin;
   right: 8vmin;
   position: absolute;
@@ -219,29 +212,13 @@ body {
   z-index: -2;
 }
 .⚪️ + .⚪️ {
-  animation-delay: 2s;
+  animation-delay: $speed * 2;
   bottom: 10vmin;
   left: 10vmin;
   top: calc(100% + 20vmin);
 }
-@keyframes float {
-  from {
-    background-position: 0 0;
-    top: calc(100% + 20vmin);
-    transform: scale(1);
-  }
-  50% {
-    background-position: 5vmin 5vmin, 7vmin 8vmin, 5vmin 0;
-    transform: scale(2);
-  }
-  to {
-    background-position: 0 0;
-    top: -20vmin;
-    transform: scale(1.5);
-  }
-}
 .arm {
-  animation: 0.5s linear infinite alternate paused;
+  animation: math.div($speed, 2) linear infinite alternate paused;
   border-radius: 100px;
   bottom: 0;
   height: 32%;
@@ -256,20 +233,21 @@ body {
   border-radius: 100%;
   bottom: 12.5%;
   content: "";
-  height: 1vmin;
+  height: $size * 0.05;
   position: absolute;
   right: 0;
-  width: 1vmin;
+  width: $size * 0.05;
 }
 .arm::after {
-  bottom: 2.4vmin;
+  bottom: $size * 0.12;
 }
+$shadow: linear-gradient(rgba(black, 0.25), transparent 67%);
 .arm {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.25), transparent 67%),
+  background-image: $shadow,
     linear-gradient(to left, rgba(0, 0, 0, 0.25) 50%, transparent 50%);
 }
 .arm:nth-child(n + 5) {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.25), transparent 67%),
+  background-image: $shadow,
     linear-gradient(to right, rgba(0, 0, 0, 0.25) 50%, transparent 50%);
   left: 50%;
 }
@@ -337,13 +315,14 @@ a {
 .viv:hover {
   background-color: #078;
 }
-/* Animate */
+// Animate
 body:has(#animate:checked),
 body:has(#animate:checked) .🐙,
 body:has(#animate:checked) .⚪️,
 body:has(#animate:checked) .arm {
   animation-play-state: running;
 }
+
 input[type="range"] {
   appearance: none;
   background-image: linear-gradient(
