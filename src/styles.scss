@@ -16,35 +16,18 @@ html,
 body {
   height: 100%;
 }
-
+$wave: transparent,
+  transparent math.div($bg-size, 4),
+  rgba(cyan, 0.1) math.div($bg-size, 4),
+  rgba(cyan, 0.1) math.div($bg-size, 2),
+  transparent math.div($bg-size, 2);
 body {
   align-items: center;
   animation: down $speed linear infinite paused;
   background-color: midnightblue;
-  background-image: radial-gradient(
-      circle at $bg-size * 0.75 0,
-      transparent,
-      transparent math.div($bg-size, 4),
-      rgba(cyan, 0.1) math.div($bg-size, 4),
-      rgba(cyan, 0.1) math.div($bg-size, 2),
-      transparent math.div($bg-size, 2)
-    ),
-    radial-gradient(
-      circle at $bg-size * 1.5 $bg-size * 0.9,
-      transparent,
-      transparent math.div($bg-size, 4),
-      rgba(cyan, 0.1) math.div($bg-size, 4),
-      rgba(cyan, 0.1) math.div($bg-size, 2),
-      transparent math.div($bg-size, 2)
-    ),
-    radial-gradient(
-      circle at 0 $bg-size * 0.9,
-      transparent,
-      transparent math.div($bg-size, 4),
-      rgba(cyan, 0.1) math.div($bg-size, 4),
-      rgba(cyan, 0.1) math.div($bg-size, 2),
-      transparent math.div($bg-size, 2)
-    );
+  background-image: radial-gradient(circle at $bg-size * 0.75 0, $wave),
+    radial-gradient(circle at $bg-size * 1.5 $bg-size * 0.9, $wave),
+    radial-gradient(circle at 0 $bg-size * 0.9, $wave);
   background-position: center math.div($bg-size, 2);
   background-size: $bg-size * 1.5 $bg-size * 0.9;
   display: flex;
@@ -180,12 +163,12 @@ body {
   top: calc(50% + 10vmin);
 }
 .🐙::before {
-  height: 30%;
-  width: 80%;
   bottom: 20%;
   content: "";
+  height: 30%;
   left: 10%;
   position: absolute;
+  width: 80%;
 }
 @function bubble($size, $position) {
   @return radial-gradient(
@@ -199,11 +182,8 @@ body {
 
 .⚪️ {
   animation: float $speed * 5 linear infinite paused;
-  background-image:
-    bubble(3vmin, 3vmin 3vmin),
-    bubble(2vmin, 9vmin 9vmin),
-    bubble(1vmin, 3vmin 15vmin)
-  ;
+  background-image: bubble(3vmin, 3vmin 3vmin), bubble(2vmin, 9vmin 9vmin),
+    bubble(1vmin, 3vmin 15vmin);
   height: 20vmin;
   right: 8vmin;
   position: absolute;
@@ -262,10 +242,10 @@ $shadow: linear-gradient(rgba(black, 0.25), transparent 67%);
   color: #fff;
   cursor: pointer;
   font-family: monospace;
+  left: 1vmin;
   padding: 0.5rem;
   position: absolute;
   top: 1vmin;
-  left: 1vmin;
 }
 .toggle + .toggle {
   left: auto;
