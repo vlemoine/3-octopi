@@ -11,30 +11,34 @@ $size: 20vmin;
   --oct-1: 322deg;
   --oct-2: 16deg;
   --oct-3: 181deg;
+  --bg-size: 25vmin;
 }
 html,
 body {
   height: 100%;
 }
+
 $wave: transparent,
-  transparent math.div($bg-size, 4),
-  rgba(cyan, 0.1) math.div($bg-size, 4),
-  rgba(cyan, 0.1) math.div($bg-size, 2),
-  transparent math.div($bg-size, 2);
-body {
+  transparent calc(var(--bg-size) / 4),
+  rgba(cyan, 0.1) calc(var(--bg-size) / 4),
+  rgba(cyan, 0.1) calc(var(--bg-size) / 2),
+  transparent calc(var(--bg-size) / 2);
+
+  body {
   align-items: center;
   animation: down $speed linear infinite paused;
   background-color: midnightblue;
-  background-image: radial-gradient(circle at $bg-size * 0.75 0, $wave),
-    radial-gradient(circle at $bg-size * 1.5 $bg-size * 0.9, $wave),
-    radial-gradient(circle at 0 $bg-size * 0.9, $wave);
-  background-position: center math.div($bg-size, 2);
-  background-size: $bg-size * 1.5 $bg-size * 0.9;
+  background-image: radial-gradient(circle at calc(var(--bg-size) * 0.75) 0, $wave),
+    radial-gradient(circle at calc(var(--bg-size) * 1.5) calc(var(--bg-size) * 0.9), $wave),
+    radial-gradient(circle at 0 calc(var(--bg-size) * 0.9), $wave);
+  background-position: center calc(var(--bg-size) / 2);
+  background-size: calc(var(--bg-size) * 1.5) calc(var(--bg-size) * 0.9);
   display: flex;
   justify-content: center;
   margin: 0;
   overflow: hidden;
 }
+
 .🐙 {
   --hue: 100deg;
   animation: bounce $speed infinite alternate paused;
