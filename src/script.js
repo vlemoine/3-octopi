@@ -7,17 +7,28 @@ const octi = document.querySelectorAll(".🫙");
 let mouse = { x: 0, y: 0 };
 let target = { x: 0, y: 0, e: null };
 
+let down = (e, t) => {
+  mouse.x = e.pageX;
+  mouse.y = e.pageY;
+  target.x = e.offsetX;
+  target.y = e.offsetY;
+  target.e = t;
+  // console.log('down', e);
+}
+
 octi.forEach((octo) => {
   octo.addEventListener("mousedown", (e) => {
-    mouse.x = e.pageX;
-    mouse.y = e.pageY;
-    target.x = e.offsetX;
-    target.y = e.offsetY;
-    target.e = octo;
-    // console.log('down', e);
+    down(e, octo);
     if (e.target.nodeName !== "INPUT") {
       window.addEventListener("mousemove", move);
       window.addEventListener("mouseup", up);
+    }
+  });
+  octo.addEventListener("touchstart", (e) => {
+    down(e, octo);
+    if (e.target.nodeName !== "INPUT") {
+      window.addEventListener("touchmove", move);
+      window.addEventListener("touchend", up);
     }
   });
 });
@@ -36,8 +47,10 @@ let up = (e) => {
   const moveY = e.pageY - mouse.y;
   target.x = moveX;
   target.y = moveY;
-  window.removeEventListener("mousemove", move);
-  window.removeEventListener("mouseup", up);
+   window.removeEventListener("mousemove", move);
+   window.removeEventListener("mouseup", up);
+   window.removeEventListener("touchmove", move);
+   window.removeEventListener("touchend", up);
 };
 
 pickers.forEach((picker, i) => {
