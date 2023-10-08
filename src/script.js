@@ -7,25 +7,35 @@ const octi = document.querySelectorAll(".🫙");
 let mouse = { x: 0, y: 0 };
 let target = { x: 0, y: 0, e: null };
 
-let down = (e, t) => {
-  mouse.x = e.pageX;
-  mouse.y = e.pageY;
-  target.x = e.offsetX;
-  target.y = e.offsetY;
-  target.e = t;
-  // console.log('down', e);
-}
+// let down = (e, t) => {
+//   mouse.x = e.pageX;
+//   mouse.y = e.pageY;
+//   target.x = e.offsetX;
+//   target.y = e.offsetY;
+//   target.e = t;
+//   console.log('down', e, mouse, target);
+// }
 
 octi.forEach((octo) => {
   octo.addEventListener("mousedown", (e) => {
-    down(e, octo);
+    mouse.x = e.pageX;
+    mouse.y = e.pageY;
+    target.x = e.offsetX;
+    target.y = e.offsetY;
+    target.e = octo;
+    console.log("down", e, mouse, target);
     if (e.target.nodeName !== "INPUT") {
       window.addEventListener("mousemove", move);
       window.addEventListener("mouseup", up);
     }
   });
   octo.addEventListener("touchstart", (e) => {
-    down(e, octo);
+    let t = e.touches[0];
+    mouse.x = t.pageX;
+    mouse.y = t.pageY;
+    target.x = t.target.offsetX;
+    target.y = t.target.offsetY;
+    target.e = octo;
     if (e.target.nodeName !== "INPUT") {
       window.addEventListener("touchmove", move);
       window.addEventListener("touchend", up);
@@ -34,17 +44,18 @@ octi.forEach((octo) => {
 });
 
 let move = (e) => {
-  const moveX = e.pageX - mouse.x;
-  const moveY = e.pageY - mouse.y;
+  let t = e.touches?.[0]; 
+  const moveX = (t ? t.pageX : e.pageX) - mouse.x;
+  const moveY = (t ? t.pageY : e.pageY) - mouse.y;
   target.x = moveX;
   target.y = moveY;
   target.e.style.transform = `translate(${target.x}px, ${target.y}px)`;
 };
 
 let up = (e) => {
-  // console.log('up', e);
-  const moveX = e.pageX - mouse.x;
-  const moveY = e.pageY - mouse.y;
+  let t = e.touches?.[0];
+  const moveX = (t ? t.pageX : e.pageX) - mouse.x;
+  const moveY = (t ? t.pageY : e.pageY) - mouse.y;
   target.x = moveX;
   target.y = moveY;
    window.removeEventListener("mousemove", move);
