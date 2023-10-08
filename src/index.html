@@ -13,10 +13,13 @@
   </head>
   <body>
     <header>
-      <label class="toggle" for="music"
-        >Music <input id="music" name="music" type="checkbox"
-      /></label>
-      <label class="toggle" for="animate"
+      <div class="music">
+        <label for="music" class="toggle pill"
+          >Music <input id="music" name="music" type="checkbox"
+        /></label>
+        <label for="volume" class="pill">🔉 <input id="volume" type="range" min="0" max="1" step="0.01"></label>
+      </div>
+      <label class="toggle pill" for="animate"
         >Animation <input id="animate" name="animate" type="checkbox" checked
       /></label>
       <a class="link" href="//🐙🐙🐙.ws"><h1>🐙🐙🐙.ws</h1></a>
@@ -82,38 +85,22 @@
       <div class="⚪️"></div>
       <div class="⚪️"></div>
     </main>
-    <footer><div id="player"></div></footer>
+    <footer>
+      <audio disableremoteplayback loop preload>
+        <source
+          src="https://res.cloudinary.com/drmor38ma/video/upload/3octi/tdrnnrudsmwm8pckn6iu.aac"
+          type="audio/aac"
+        />
+        <source
+          src="https://res.cloudinary.com/drmor38ma/video/upload/3octi/tdrnnrudsmwm8pckn6iu.ogg"
+          type="audio/ogg"
+        />
+        <source
+          src="https://res.cloudinary.com/drmor38ma/video/upload/3octi/tdrnnrudsmwm8pckn6iu.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+    </footer>
     <script src="script.js"></script>
-    <script>
-      var tag = document.createElement("script");
-      tag.src = "//www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player("player", {
-          height: "0",
-          width: "0",
-          videoId: "JTszj4iZUMw",
-          playerVars: {
-            disablekb: 1,
-            playsinline: 1,
-          },
-          events: {
-            onReady: onPlayerReady,
-          },
-        });
-      }
-      function onPlayerReady() {
-        player.setVolume(50);
-        music.addEventListener("change", () => {
-          if (music.checked) {
-            player.playVideo();
-          } else {
-            player.pauseVideo();
-          }
-        });
-      }
-    </script>
   </body>
 </html>

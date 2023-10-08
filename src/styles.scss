@@ -16,19 +16,22 @@ body {
   height: 100%;
 }
 
-$wave: transparent,
-  transparent calc(var(--bg-size) / 4),
+$wave: transparent, transparent calc(var(--bg-size) / 4),
   rgba(cyan, 0.1) calc(var(--bg-size) / 4),
-  rgba(cyan, 0.1) calc(var(--bg-size) / 2),
-  transparent calc(var(--bg-size) / 2);
+  rgba(cyan, 0.1) calc(var(--bg-size) / 2), transparent calc(var(--bg-size) / 2);
 
-  body {
+body {
   align-items: center;
   animation: down var(--speed) linear infinite paused;
   background-color: midnightblue;
-  background-image:
-    radial-gradient(circle at calc(var(--bg-size) * 0.75) 0, $wave),
-    radial-gradient(circle at calc(var(--bg-size) * 1.5) calc(var(--bg-size) * 0.9), $wave),
+  background-image: radial-gradient(
+      circle at calc(var(--bg-size) * 0.75) 0,
+      $wave
+    ),
+    radial-gradient(
+      circle at calc(var(--bg-size) * 1.5) calc(var(--bg-size) * 0.9),
+      $wave
+    ),
     radial-gradient(circle at 0 calc(var(--bg-size) * 0.9), $wave);
   background-position: center calc(var(--bg-size) / 2);
   background-size: calc(var(--bg-size) * 1.5) calc(var(--bg-size) * 0.9);
@@ -48,7 +51,8 @@ $wave: transparent,
     rgb(255, 255, 255, 0) 33%
   );
   border-radius: 100%;
-  box-shadow: inset 0 calc(var(--size) * 0.08) calc(var(--size) * 0.08) rgb(0, 0, 0, 0.125);
+  box-shadow: inset 0 calc(var(--size) * 0.08) calc(var(--size) * 0.08)
+    rgb(0, 0, 0, 0.125);
   flex: 0 0 auto;
   margin-top: calc(var(--size) / -5);
   position: absolute;
@@ -147,17 +151,14 @@ $wave: transparent,
   box-shadow: inset -0.4vmin 0 0 hwb(var(--hue) 0% 70%);
 }
 .🐙:nth-child(1) {
-  // background-color: mediumvioletred;
   --hue: var(--oct-1);
 }
 .🐙:nth-child(2) {
-  // background-color: orangered;
   --hue: var(--oct-2);
   left: 20%;
   top: 20%;
 }
 .🐙:nth-child(3) {
-  // background-color: darkturquoise;
   --hue: var(--oct-3);
   right: 15%;
   top: 33%;
@@ -173,6 +174,7 @@ $wave: transparent,
   position: absolute;
   width: 80%;
 }
+
 @function bubble($_size, $position) {
   @return radial-gradient(
     circle at $position,
@@ -200,6 +202,7 @@ $wave: transparent,
   left: 10vmin;
   top: calc(100% + 20vmin);
 }
+
 .arm {
   animation: calc(var(--speed) / 2) linear infinite alternate paused;
   border-radius: 100px;
@@ -241,37 +244,78 @@ $shadow: linear-gradient(rgb(0, 0, 0, 0.25), transparent 67%);
 
 @import "arms";
 
-.toggle {
-  color: #fff;
-  cursor: pointer;
-  font-family: monospace;
-  left: 1vmin;
-  padding: 0.5rem;
+// Header
+
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 1vmin;
   position: absolute;
-  top: 1vmin;
+  right: 0;
+  top: 0;
+
+  // toggle
+  .toggle {
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-family: monospace;
+  }
+  .toggle:focus-within,
+  .toggle:hover {
+    background-color: hwb(322deg 0% 20%);
+  }
+  .toggle::after {
+    content: "off";
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .toggle:has(input:checked)::after {
+    content: "on";
+  }
+  .toggle input[type="checkbox"] {
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    width: 0;
+  }
+
+  // music
+  .music {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .music:has(input:checked) label[for="volume"] {
+    display: flex;
+  }
+  .music:has(input[type="checkbox"]:not(:checked)) label[for="volume"] input {
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    width: 0;
+  }
+
+  label[for="volume"] {
+    display: none;
+    &:hover,
+    &:focus-within {
+      background-color: hwb(200deg 0% 20%);
+    }
+  }
 }
-.toggle + .toggle {
-  left: auto;
-  right: 1vmin;
-}
-.toggle:focus-within {
-  background-color: hwb(322deg 0% 20%);
+
+.pill {
+  align-items: center;
   border-radius: 100px;
+  gap: 0.25rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  transition: background-color 100ms;
 }
-.toggle::after {
-  content: "off";
-  font-weight: bold;
-  text-decoration: underline;
-}
-.toggle:has(input:checked)::after {
-  content: "on";
-}
-.toggle input {
-  height: 0;
-  margin: 0;
-  opacity: 0;
-  width: 0;
-}
+
 a {
   border-radius: 1rem;
   color: #fff;
@@ -281,6 +325,7 @@ a {
   text-decoration: none;
   transition: background-color 0.5s;
 }
+
 .link {
   left: 0;
   margin: auto;
@@ -288,16 +333,12 @@ a {
   text-align: center;
   top: 1vmin;
   width: 12ch;
+  order: 1;
 }
 .link:hover {
   background-color: orangered;
 }
-.viv {
-  bottom: 1vmin;
-}
-.viv:hover {
-  background-color: #078;
-}
+
 // Animate
 body:has(#animate:checked),
 body:has(#animate:checked) .🐙,
@@ -306,33 +347,36 @@ body:has(#animate:checked) .arm {
   animation-play-state: running;
 }
 
-input[type="range"] {
-  appearance: none;
-  background-image: linear-gradient(
-    to right,
-    hwb(0deg 0% 0%),
-    hwb(36deg 0% 0%),
-    hwb(72deg 0% 0%),
-    hwb(108deg 0% 0%),
-    hwb(144deg 0% 0%),
-    hwb(180deg 0% 0%),
-    hwb(216deg 0% 0%),
-    hwb(252deg 0% 0%),
-    hwb(288deg 0% 0%),
-    hwb(324deg 0% 0%),
-    hwb(360deg 0% 0%)
-  );
-  border-radius: 100px;
-  left: -25%;
-  opacity: 0;
-  position: absolute;
-  top: -2rem;
-  width: 150%;
+main {
+  input[type="range"] {
+    appearance: none;
+    background-image: linear-gradient(
+      to right,
+      hwb(0deg 0% 0%),
+      hwb(36deg 0% 0%),
+      hwb(72deg 0% 0%),
+      hwb(108deg 0% 0%),
+      hwb(144deg 0% 0%),
+      hwb(180deg 0% 0%),
+      hwb(216deg 0% 0%),
+      hwb(252deg 0% 0%),
+      hwb(288deg 0% 0%),
+      hwb(324deg 0% 0%),
+      hwb(360deg 0% 0%)
+    );
+    border-radius: 100px;
+    left: -25%;
+    opacity: 0;
+    position: absolute;
+    top: -2rem;
+    width: 150%;
+  }
+  label:focus-within input[type="range"],
+  input[type="range"]:focus {
+    opacity: 1;
+  }
 }
-label:focus-within input[type="range"],
-input[type="range"]:focus {
-  opacity: 1;
-}
+
 h1 {
   font-size: 0.8125rem;
   font-weight: 400;
