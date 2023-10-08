@@ -58,17 +58,19 @@ body {
   position: absolute;
   width: var(--size);
   &::before {
+    --hl-y: 37.5%;
+    --hl-size: 0.02;
     background-image:
       // highlight
       radial-gradient(
-        circle at 18.75% 37.5%,
-        #fffc calc(var(--size) * 0.02),
-        transparent calc(var(--size) * 0.022)
+        circle at 18.75% var(--hl-y),
+        #fffc calc(var(--size) * var(--hl-size)),
+        transparent calc(var(--size) * var(--hl-size) * 1.1)
       ),
       radial-gradient(
-        circle at 81.25% 37.5%,
-        #fffc calc(var(--size) * 0.02),
-        transparent calc(var(--size) * 0.022)
+        circle at 81.25% var(--hl-y),
+        #fffc calc(var(--size) * var(--hl-size)),
+        transparent calc(var(--size) * var(--hl-size) * 1.1)
       ),
       // pupils
       radial-gradient(
@@ -150,21 +152,38 @@ body {
 .🐙 .arm:nth-child(7)::after {
   box-shadow: inset -0.4vmin 0 0 hwb(var(--hue) 0% 70%);
 }
-.🐙:nth-child(1) {
-  --hue: var(--oct-1);
-}
-.🐙:nth-child(2) {
-  --hue: var(--oct-2);
-  left: 20%;
-  top: 20%;
-}
-.🐙:nth-child(3) {
-  --hue: var(--oct-3);
-  right: 15%;
-  top: 33%;
-}
-.🐙:first-child {
-  top: calc(50% + 10vmin);
+.🫙 {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  // background-color: #f005;
+  &:active .arm {
+    --speed: 0.25s;
+  }
+  &:active .🐙::before {
+    --hl-y: 50%;
+    --hl-size: 0.033;
+  }
+  &:nth-child(1) {
+    top: calc(50% + 10vmin);
+    .🐙 {
+      --hue: var(--oct-1);
+    }
+  }
+  &:nth-child(2) {
+    left: 20%;
+    top: 20%;
+    .🐙 {
+      --hue: var(--oct-2);
+    }
+  }
+  &:nth-child(3) {
+    right: 15%;
+    top: 33%;
+    .🐙 {
+      --hue: var(--oct-3);
+    }
+  }
 }
 .🐙::before {
   bottom: 20%;
